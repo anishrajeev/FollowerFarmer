@@ -12,10 +12,10 @@ public class Main {
         //^in minutes
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("KR7noHS5nrWDwcsKG9OLD4Siu")
-                .setOAuthConsumerSecret("jH7r6EGYcfWxICyaknYug6lIcWuwxUd4xhinpSWUV4jn8AsZYe")
-                .setOAuthAccessToken("1088586128188493824-Oc70X9qg8kAsmY8ceUoLEGtvufWGiW")
-                .setOAuthAccessTokenSecret("CFOyKQQaNRG86LpOyH9Ix8XuosGaFpeblLjeGi7z6wfb1");
+                .setOAuthConsumerKey("Put your API key here")
+                .setOAuthConsumerSecret("Put your API key secret here")
+                .setOAuthAccessToken("Put your Access token here")
+                .setOAuthAccessTokenSecret("Put your secret Access token here");
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
         TreeSet<Integer> visited = new TreeSet<>();
