@@ -1,0 +1,42 @@
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
+import java.util.ArrayList;
+import java.util.Collections;
+public class Main {
+    public static void main(String[] args) throws TwitterException {
+        long interval = 60;
+        //^in minutes
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setDebugEnabled(true)
+                .setOAuthConsumerKey("Put your API key here")
+                .setOAuthConsumerSecret("Put your API key secret here")
+                .setOAuthAccessToken("Put your Access token here")
+                .setOAuthAccessTokenSecret("Put your secret Access token here");
+        TwitterFactory tf = new TwitterFactory(cb.build());
+        Twitter twitter = tf.getInstance();
+        ArrayList<String> tweets = new ArrayList<>();
+        tweets.add("Hello, need help on an essay!");
+        tweets.add("Id literally pay someone to write this essay for me");
+        tweets.add("Paying for a graphic design logo HMU");
+        tweets.add("Need a cool graphic design logo for my website willing to pay");
+        tweets.add("Help, I need a physics tutor");
+        tweets.add("Need a chemistry tutor, willing to pay");
+        tweets.add("Need homework help");
+        tweets.add("Need an essay writer please comment");
+        tweets.add("Need help designing this logo, Logo design/graphic design expertise needed");
+        Collections.shuffle(tweets);
+        interval = interval*60000;
+        long oldtime = System.currentTimeMillis()-interval;
+        long newtime = System.currentTimeMillis();
+        while(true){
+            if(newtime - oldtime >= interval){
+                int numberrandom = (int) (Math.random()*(tweets.size()-1));
+                twitter.updateStatus(tweets.get(numberrandom));
+                oldtime = System.currentTimeMillis();
+            }
+            newtime = System.currentTimeMillis();
+        }
+    }
+}
