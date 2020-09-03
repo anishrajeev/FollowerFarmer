@@ -4,18 +4,21 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.TreeSet;
+
 public class Main {
     public static void main(String[] args) throws TwitterException {
         long interval = 60;
         //^in minutes
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("Put your API key here")
-                .setOAuthConsumerSecret("Put your API key secret here")
-                .setOAuthAccessToken("Put your Access token here")
-                .setOAuthAccessTokenSecret("Put your secret Access token here");
+                .setOAuthConsumerKey("KR7noHS5nrWDwcsKG9OLD4Siu")
+                .setOAuthConsumerSecret("jH7r6EGYcfWxICyaknYug6lIcWuwxUd4xhinpSWUV4jn8AsZYe")
+                .setOAuthAccessToken("1088586128188493824-Oc70X9qg8kAsmY8ceUoLEGtvufWGiW")
+                .setOAuthAccessTokenSecret("CFOyKQQaNRG86LpOyH9Ix8XuosGaFpeblLjeGi7z6wfb1");
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
+        TreeSet<Integer> visited = new TreeSet<>();
         ArrayList<String> tweets = new ArrayList<>();
         tweets.add("Hello, need help on an essay!");
         tweets.add("Id literally pay someone to write this essay for me");
@@ -31,9 +34,12 @@ public class Main {
         long oldtime = System.currentTimeMillis()-interval;
         long newtime = System.currentTimeMillis();
         while(true){
+            if(visited.size()==tweets.size())visited.clear();
             if(newtime - oldtime >= interval){
                 int numberrandom = (int) (Math.random()*(tweets.size()-1));
+                while(visited.contains(numberrandom))numberrandom = (int) (Math.random()*(tweets.size()-1));
                 twitter.updateStatus(tweets.get(numberrandom));
+                visited.add(numberrandom);
                 oldtime = System.currentTimeMillis();
             }
             newtime = System.currentTimeMillis();
